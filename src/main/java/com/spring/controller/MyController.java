@@ -96,8 +96,10 @@ public class MyController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<Employee>getEmployeeId(@PathVariable("id") int id){
 
+        //Display List of Employees
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
 
+        // for each loop for iterate the id
         for(Employee e : employeeList){
 
             if(id == e.getId()){
