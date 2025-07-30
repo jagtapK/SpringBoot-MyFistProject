@@ -5,11 +5,9 @@ import com.spring.repo.EmployeeRepo;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +34,9 @@ public class MyController {
 
         //Print all names in UpperCase
         List<String> n = nameList.stream().map(String::toUpperCase).toList();
+
+        //Print all names in LowerCase
+        List<String> n1 = nameList.stream().map(String::toLowerCase).toList();
 
         return new ResponseEntity<>(n , HttpStatus.OK);
 
@@ -92,7 +93,6 @@ public class MyController {
 
     // get Employee by id
 
-
     @GetMapping("/getById/{id}")
     public ResponseEntity<Employee>getEmployeeId(@PathVariable("id") int id){
 
@@ -129,6 +129,41 @@ public class MyController {
         //Display Not Found If user enters wrong id
         Employee e2 = new Employee();
         return new ResponseEntity<>(e2, HttpStatus.NOT_FOUND);
+    }
+
+    //@RequestParam use to get all type of data
+
+    @GetMapping("/sorted")
+    public ResponseEntity<List<Employee>> getEmployees(@RequestParam(required = false) String city){
+
+        System.err.println("City is: "+ city);
+
+        List<Employee> employeeList = EmployeeRepo.getAllEmployee();
+
+        List<Employee> sortedList = new ArrayList<>();
+        if (city != null) {
+
+        for(Employee e : employeeList) {
+                if(city.equalsIgnoreCase(e.getCity())){
+                    sortedList.add(e);
+                }
+            }
+        return new ResponseEntity<>(sortedList, HttpStatus.OK );
+        }
+        else{
+            return new ResponseEntity<>(employeeList, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/addEmployee")
+    public ResponseEntity<String> addEmployee(@RequestBody  Employee emp){
+
+        System.out.println("Employee Details: " +emp);
+        return new ResponseEntity("Data saved Successfully: ", HttpStatus.CREATED);
+
+
+
+
     }
 
 }
