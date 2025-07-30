@@ -1,9 +1,12 @@
 package com.spring.controller;
 
+import com.spring.entity.Employee;
+import com.spring.repo.EmployeeRepo;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,6 +68,44 @@ public class MyController {
         List<Character> chars = Arrays.asList('K','A','J','A','L');
 
         return new ResponseEntity<>(chars, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getEmployee")
+    public ResponseEntity<Employee> getEmployee(){
+        Employee e = new Employee();
+        e.setId(101);
+        e.setfName("John");
+        e.setlName("Deo");
+        e.setCity("Pune");
+
+        return new ResponseEntity<>(e, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllEmployee")
+    public ResponseEntity<List<Employee>> getAllEmployee(){
+        List<Employee> employeeList = EmployeeRepo.getAllEmployee();
+        return new ResponseEntity<>(employeeList, HttpStatus.OK);
+    }
+
+
+    // get Employee by Id
+
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Employee> getEmployeeId(@PathVariable("id") int id){
+
+        List<Employee> employeeList = EmployeeRepo.getAllEmployee();
+
+        for(Employee e : employeeList){
+
+            if(id == e.getId()){
+                return new ResponseEntity<>(e, HttpStatus.OK);
+            }
+        }
+        
+        Employee e1 = new Employee();
+        return new ResponseEntity<>(e1, HttpStatus.NOT_FOUND);
 
     }
 
