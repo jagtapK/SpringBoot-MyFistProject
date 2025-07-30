@@ -40,7 +40,7 @@ public class MyController {
 
     }
     @GetMapping("/getNumbers")
-    public ResponseEntity<List<Integer>> getNumbers(){
+    public ResponseEntity<List<Integer>>getNumbers(){
 
         int num1 = 10;
         int num2 = 20;
@@ -50,10 +50,10 @@ public class MyController {
         List<Integer> num = Arrays.asList(num1, num2, num3, num4, num5);
 
         //Print Odd Numbers
-        List<Integer> number = num.stream().filter(n -> n%2 == 1).toList();
+        List<Integer>number = num.stream().filter(n -> n%2 == 1).toList();
 
         // Print Numbers > 20
-        List<Integer> n = num.stream().filter(r -> r > 20).toList();
+        List<Integer>n = num.stream().filter(r -> r > 20).toList();
 
         //Square All Numbers
         List<Integer> list = num.stream().map(k -> k * k).toList();
@@ -63,7 +63,7 @@ public class MyController {
     }
 
     @GetMapping("/getChar")
-    public ResponseEntity<List<Character>> getChar()
+    public ResponseEntity<List<Character>>getChar()
     {
         List<Character> chars = Arrays.asList('K','A','J','A','L');
 
@@ -72,7 +72,7 @@ public class MyController {
     }
 
     @GetMapping("/getEmployee")
-    public ResponseEntity<Employee> getEmployee(){
+    public ResponseEntity<Employee>getEmployee(){
         Employee e = new Employee();
         e.setId(101);
         e.setfName("John");
@@ -83,17 +83,17 @@ public class MyController {
     }
 
     @GetMapping("/getAllEmployee")
-    public ResponseEntity<List<Employee>> getAllEmployee(){
+    public ResponseEntity<List<Employee>>getAllEmployee(){
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
 
-    // get Employee by Id
+    // get Employee by id
 
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Employee> getEmployeeId(@PathVariable("id") int id){
+    public ResponseEntity<Employee>getEmployeeId(@PathVariable("id") int id){
 
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
 
@@ -106,6 +106,23 @@ public class MyController {
         
         Employee e1 = new Employee();
         return new ResponseEntity<>(e1, HttpStatus.NOT_FOUND);
+
+    }
+    
+    //Get Employee By Name
+
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<Employee> getEmployeeName(@PathVariable("name") String name){
+
+        List<Employee> employeeList = EmployeeRepo.getAllEmployee();
+        for(Employee emp : employeeList){
+
+            if(name.equals(emp.getfName())){
+                return new ResponseEntity<>(emp, HttpStatus.OK);
+            }
+        }
+        Employee e2 = new Employee();
+        return new ResponseEntity<>(e2, HttpStatus.NOT_FOUND);
 
     }
 
