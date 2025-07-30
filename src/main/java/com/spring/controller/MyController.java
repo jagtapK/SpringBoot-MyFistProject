@@ -27,8 +27,9 @@ public class MyController {
         String name3 = "Riya";
         String name4 = "Sham";
         String name5 = "Siya";
+        String name6 = "Tiya";
 
-        List<String> nameList = Arrays.asList(name, name1, name2, name3, name4, name5);
+        List<String> nameList = Arrays.asList(name, name1, name2, name3, name4, name5, name6);
 
         //Names starts with 'S' using StreamAPI(Lambda)
         List<String> names = nameList.stream().filter(a -> a.startsWith("S")).toList();
