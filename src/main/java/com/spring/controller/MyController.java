@@ -105,7 +105,7 @@ public class MyController {
         }
         
         Employee e1 = new Employee();
-        return new ResponseEntity<>(e1, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e1, HttpStatus.NOT_FOUND); // it will throw not found message on postman
 
     }
     
