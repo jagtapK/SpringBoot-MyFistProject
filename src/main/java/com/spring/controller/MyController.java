@@ -49,8 +49,8 @@ public class MyController {
         int num5 = 3;
         List<Integer> num = Arrays.asList(num1, num2, num3, num4, num5);
 
-        //Print Odd Numbers
-        List<Integer>number = num.stream().filter(n -> n%2 == 1).toList();
+        //Print Even Numbers
+        List<Integer>number = num.stream().filter(n -> n%2 == 0).toList();
 
         // Print Numbers > 20
         List<Integer>n = num.stream().filter(r -> r > 20).toList();
