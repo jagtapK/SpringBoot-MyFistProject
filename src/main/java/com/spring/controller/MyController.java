@@ -37,6 +37,9 @@ public class MyController {
         //Print all names in UpperCase
         List<String> n = nameList.stream().map(String::toUpperCase).toList();
 
+        //Print all names in LowerCase
+        List<String> n1 = nameList.stream().map(String::toLowerCase).toList();
+
         return new ResponseEntity<>(n , HttpStatus.OK);
 
     }
@@ -91,7 +94,6 @@ public class MyController {
 
 
     // get Employee by id
-
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<Employee>getEmployeeId(@PathVariable("id") int id){
