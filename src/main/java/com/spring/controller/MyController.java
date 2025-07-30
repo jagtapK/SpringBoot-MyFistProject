@@ -115,15 +115,17 @@ public class MyController {
     public ResponseEntity<Employee> getEmployeeName(@PathVariable("name") String name){
 
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
+
         for(Employee emp : employeeList){
 
             if(name.equals(emp.getfName())){
                 return new ResponseEntity<>(emp, HttpStatus.OK);
             }
         }
+
+        //Display Not Found If user enters wrong id
         Employee e2 = new Employee();
         return new ResponseEntity<>(e2, HttpStatus.NOT_FOUND);
-
     }
 
 }
