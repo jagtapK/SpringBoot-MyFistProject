@@ -155,7 +155,7 @@ public class MyController {
         }
     }
 
-    // Use post Mapping to post data on postman
+    // Use post Mapping to post single Employee Details on postman
 
     @PostMapping("/addEmployee")
     public ResponseEntity<String> addEmployee(@RequestBody  Employee emp){
@@ -163,9 +163,13 @@ public class MyController {
         System.out.println("Employee Details: " +emp);
         return new ResponseEntity("Data saved Successfully: ", HttpStatus.CREATED);
 
-
-
-
     }
 
+    // post list of Employee on postman
+
+    @PostMapping("/getEmployee")
+   public ResponseEntity<String> getEmployees(@RequestBody List<Employee> employeelist){
+       System.out.println("Employee Details"+ employeelist);
+       return new ResponseEntity<>("Save Employee details Successfully ",HttpStatus.CREATED);
+   }
 }
