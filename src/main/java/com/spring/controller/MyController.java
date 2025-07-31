@@ -155,6 +155,8 @@ public class MyController {
         }
     }
 
+    // Use post Mapping to post data on postman
+
     @PostMapping("/addEmployee")
     public ResponseEntity<String> addEmployee(@RequestBody  Employee emp){
 
