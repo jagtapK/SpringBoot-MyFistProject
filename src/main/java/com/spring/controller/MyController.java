@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
 public class MyController {
 
     @GetMapping("/getName")
-    public ResponseEntity<List<String>> getName()
-    {
+    public ResponseEntity<List<String>> getName() {
         String name = "John";
         String name1 = "Alice";
         String name2 = "Shailaja";
@@ -38,11 +37,12 @@ public class MyController {
         //Print all names in LowerCase
         List<String> n1 = nameList.stream().map(String::toLowerCase).toList();
 
-        return new ResponseEntity<>(n , HttpStatus.OK);
+        return new ResponseEntity<>(n, HttpStatus.OK);
 
     }
+
     @GetMapping("/getNumbers")
-    public ResponseEntity<List<Integer>>getNumbers(){
+    public ResponseEntity<List<Integer>> getNumbers() {
 
         int num1 = 10;
         int num2 = 20;
@@ -52,10 +52,10 @@ public class MyController {
         List<Integer> num = Arrays.asList(num1, num2, num3, num4, num5);
 
         //Print Even Numbers
-        List<Integer>number = num.stream().filter(n -> n%2 == 0).toList();
+        List<Integer> number = num.stream().filter(n -> n % 2 == 0).toList();
 
         // Print Numbers > 20
-        List<Integer>n = num.stream().filter(r -> r > 20).toList();
+        List<Integer> n = num.stream().filter(r -> r > 20).toList();
 
         //Square All Numbers
         List<Integer> list = num.stream().map(k -> k * k).toList();
@@ -65,16 +65,15 @@ public class MyController {
     }
 
     @GetMapping("/getChar")
-    public ResponseEntity<List<Character>>getChar()
-    {
-        List<Character> chars = Arrays.asList('K','A','J','A','L');
+    public ResponseEntity<List<Character>> getChar() {
+        List<Character> chars = Arrays.asList('K', 'A', 'J', 'A', 'L');
 
         return new ResponseEntity<>(chars, HttpStatus.OK);
 
     }
 
     @GetMapping("/getEmployee")
-    public ResponseEntity<Employee>getEmployee(){
+    public ResponseEntity<Employee> getEmployee() {
         Employee e = new Employee();
         e.setId(101);
         e.setfName("John");
@@ -85,7 +84,7 @@ public class MyController {
     }
 
     @GetMapping("/getAllEmployee")
-    public ResponseEntity<List<Employee>>getAllEmployee(){
+    public ResponseEntity<List<Employee>> getAllEmployee() {
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
@@ -94,34 +93,34 @@ public class MyController {
     // get Employee by id
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Employee>getEmployeeId(@PathVariable("id") int id){
+    public ResponseEntity<Employee> getEmployeeId(@PathVariable("id") int id) {
 
         //Display List of Employees
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
 
         // for each loop for iterate the id
-        for(Employee e : employeeList){
+        for (Employee e : employeeList) {
 
-            if(id == e.getId()){
+            if (id == e.getId()) {
                 return new ResponseEntity<>(e, HttpStatus.OK);
             }
         }
-        
+
         Employee e1 = new Employee();
         return new ResponseEntity<>(e1, HttpStatus.NOT_FOUND); // it will throw not found message on postman
 
     }
-    
+
     //Get Employee By Name
 
     @GetMapping("/getByName/{name}")
-    public ResponseEntity<Employee> getEmployeeName(@PathVariable("name") String name){
+    public ResponseEntity<Employee> getEmployeeName(@PathVariable("name") String name) {
 
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
 
-        for(Employee emp : employeeList){
+        for (Employee emp : employeeList) {
 
-            if(name.equals(emp.getfName())){
+            if (name.equals(emp.getfName())) {
                 return new ResponseEntity<>(emp, HttpStatus.OK);
             }
         }
@@ -134,23 +133,22 @@ public class MyController {
     //@RequestParam use to get all type of data
 
     @GetMapping("/sorted")
-    public ResponseEntity<List<Employee>> getEmployees(@RequestParam(required = false) String city){
+    public ResponseEntity<List<Employee>> getEmployees(@RequestParam(required = false) String city) {
 
-        System.err.println("City is: "+ city);
+        System.err.println("City is: " + city);
 
         List<Employee> employeeList = EmployeeRepo.getAllEmployee();
 
         List<Employee> sortedList = new ArrayList<>();
         if (city != null) {
 
-        for(Employee e : employeeList) {
-                if(city.equalsIgnoreCase(e.getCity())){
+            for (Employee e : employeeList) {
+                if (city.equalsIgnoreCase(e.getCity())) {
                     sortedList.add(e);
                 }
             }
-        return new ResponseEntity<>(sortedList, HttpStatus.OK );
-        }
-        else{
+            return new ResponseEntity<>(sortedList, HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(employeeList, HttpStatus.OK);
         }
     }
@@ -158,9 +156,9 @@ public class MyController {
     // Use post Mapping to post single Employee Details on postman
 
     @PostMapping("/addEmployee")
-    public ResponseEntity<String> addEmployee(@RequestBody  Employee emp){
+    public ResponseEntity<String> addEmployee(@RequestBody Employee emp) {
 
-        System.out.println("Employee Details: " +emp);
+        System.out.println("Employee Details: " + emp);
         return new ResponseEntity("Data saved Successfully: ", HttpStatus.CREATED);
 
     }
@@ -168,8 +166,12 @@ public class MyController {
     // post list of Employee on postman
 
     @PostMapping("/getEmployee")
-   public ResponseEntity<String> getEmployees(@RequestBody List<Employee> employeelist){
-       System.out.println("Employee Details"+ employeelist);
-       return new ResponseEntity<>("Save Employee details Successfully ",HttpStatus.CREATED);
-   }
+    public ResponseEntity<String> getEmployees(@RequestBody List<Employee> employeelist) {
+        System.err.println("Employee Details" + employeelist);
+
+        for (Employee emp : employeelist) {
+            System.out.println(emp);
+        }
+        return new ResponseEntity<>("Save Employee details Successfully ", HttpStatus.CREATED);
+    }
 }
